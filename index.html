@@ -1,0 +1,38 @@
+<html>
+<head>
+  <title>WhatsApp Link VueJS</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+  <a target='_blank' v-bind:href="url">WhatsApp</a>
+  </div>
+  <script>
+
+    var phone = '';  // Insert your phone number for production
+    var text = 'Test,%20123';    // Insert your initial text for production URLENCODED
+
+  new Vue({
+  el: '#app',
+
+  data: {
+    url: ''
+  },
+   methods:{
+       verifyIfMobile: function() {
+         os = window.navigator.platform;
+           if (os == 'Linux armv7l' || os == 'iPhone'  || os == 'iPod'  || os == 'iPad' || os == 'BlackBerry' || os == 'webOS' || os == 'Android') {
+             this.url = "https://api.whatsapp.com/send?phone="+phone+"&text="+text
+           } else {
+             this.url = "https://web.whatsapp.com/send?phone="+phone+"&text="+text
+           }
+          console.log(this.url);
+       }
+    },
+    beforeMount(){
+      this.verifyIfMobile()
+    }
+  });
+  </script>
+</body>
+</html>
